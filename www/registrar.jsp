@@ -68,6 +68,10 @@
                     document.getElementById("clave").type = "text"; 
             }
 
+            function registrar(){
+                var nombre;
+            }
+            
         </script>
 
         <title>Twitter</title>
