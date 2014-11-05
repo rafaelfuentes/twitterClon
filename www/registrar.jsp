@@ -11,6 +11,7 @@
 
         <!-- JS -->        
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
 
@@ -67,6 +68,34 @@
                 else
                     document.getElementById("clave").type = "text"; 
             }
+            
+            function registrar(){
+                var usuario=$('#usuario').val();
+                var clave=$('#clave').val(); 
+				var nombre = $('#nombre').val();
+				var parametro = $('#correoTelefono').val();
+				var numeroTelefono = null;
+				var correo = null;
+				if($.isNumeric(parametro))
+					numeroTelefono = parametro;
+				else
+					correo = parametro;
+				
+				var request = $.ajax({
+					  url: "http://192.168.200.161:3000/addusuario",
+					  type: "POST",
+					  data: { nombre_completo:nombre ,numero_telefono:numeroTelefono ,nombre_usuario:usuario ,correo:correo ,contrasena:clave}
+					});
+					 
+					request.done(function( msg ) {
+						alert(msg);
+					  //$( "#log" ).html( msg );
+					});
+					 
+					request.fail(function( jqXHR, textStatus ) {
+					  alert( "Request failed: " + textStatus );
+					});
+            }
 
         </script>
 
@@ -109,7 +138,7 @@
             <HR>
             <div class="row-fluid">
                 <div class="col-md-12 col-xs-12" styles="background-color: #d6d6d6;">
-                    <button type="button" class="btn btn-primary btn-lg btn-block" id="registrar" disabled="disabled">Regístrate</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" id="registrar" disabled="disabled" onclick="registrar();">Regístrate</button>
 
                 </div>
             </div>
